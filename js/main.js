@@ -1,5 +1,3 @@
-
-
 let que = document.querySelectorAll(".question li");
 
 que.forEach((que) => {
@@ -32,18 +30,18 @@ players.forEach((player, index) => {
     if (audio.paused) {
       if (currentPlaying && currentPlaying !== audio) {
         currentPlaying.pause();
-    
+
         const prevPlayerBox = currentPlaying.closest(".audio-box");
         if (prevPlayerBox) {
-            const prevPlayPauseImg = prevPlayerBox.querySelector(".play-btn img");
-            if (prevPlayPauseImg) {
-                prevPlayPauseImg.src = "./images/play-button-svgrepo-com.svg";
-            }
+          const prevPlayPauseImg = prevPlayerBox.querySelector(".play-btn img");
+          if (prevPlayPauseImg) {
+            prevPlayPauseImg.src = "./images/play-button-svgrepo-com.svg";
+          }
         }
       }
       audio.play();
       currentPlaying = audio;
-      playPauseImg.src = "./images/pause-svgrepo-com.svg"; 
+      playPauseImg.src = "./images/pause-svgrepo-com.svg";
     } else {
       audio.pause();
       playPauseImg.src = "./images/play-button-svgrepo-com.svg";
@@ -51,9 +49,9 @@ players.forEach((player, index) => {
   });
 
   audio.addEventListener("ended", () => {
-    playPauseImg.src = "./images/play-button-svgrepo-com.svg"; 
+    playPauseImg.src = "./images/play-button-svgrepo-com.svg";
     progressBar.style.strokeDashoffset = 157;
-    currentPlaying = null; 
+    currentPlaying = null;
   });
 });
 
@@ -68,21 +66,10 @@ function formatTime(seconds) {
   return `${m}:${s}`;
 }
 
-/*
-const carousel = document.getElementById("carousel");
-    let angle = 0;
-    let step = 120;
-    setInterval(() => {
-      angle += step;
-      carousel.style.transform = `rotateY(${angle}deg)`;
-    }, 5000);
-    */
-    
-    document.querySelector('#see-all a').addEventListener('click', function (e) {
-      console.log("h")
+document.querySelector('#see-all a').addEventListener('click', function (e) {
   e.preventDefault();
   const target = document.querySelector('#operator');
-  const offset = 100; // مسافة الإزاحة من الأعلى
+  const offset = 100;
 
   const elementPosition = target.getBoundingClientRect().top + window.scrollY;
   const offsetPosition = elementPosition - offset;
@@ -101,28 +88,17 @@ async function fetchData() {
     if (!data.ok) throw new Error("HTTP Error: " + data.status);
 
     let dataFile = await data.json();
-    console.log(dataFile);
-    
-    // أخذ أول بودكاست
     let podcast = dataFile.data[0];
-
-    // تركيب رابط الصوت الكامل
     let audioUrl = "https://qawafi.mvas.digital" + podcast.url;
-    
     let podcast2 = dataFile.data[3];
-
-    // تركيب رابط الصوت الكامل
     let audioUrl2 = "https://qawafi.mvas.digital" + podcast2.url;
 
-    // تشغيل الصوت
     const audioElement = document.getElementById("player1");
     audioElement.src = audioUrl;
-    audioElement.play();
-    
+
     const audioElement2 = document.getElementById("player2");
     audioElement2.src = audioUrl2;
-    audioElement2.play();
-    
+
   } catch (err) {
     console.error("Error fetching data:", err);
   }
