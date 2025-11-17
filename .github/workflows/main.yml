@@ -1,0 +1,22 @@
+name: Build The app
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Deploy via executing remote commands
+          uses: appleboy/ssh-action@v1.0.0
+          with:
+            HOST: ${{ secrets.SSH_HOST }}
+            USERNAME: ${{ secrets.USERNAME }}
+            PORT: ${{ secrets.SSH_PORT }}
+            KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            script: |
+                cd ${{ secrets.FRONTEND_DIR_PATH }}
+                git pull origin main
+    
